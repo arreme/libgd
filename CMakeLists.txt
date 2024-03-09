@@ -10,13 +10,13 @@ SET(CMAKE_MODULE_PATH "${GD_SOURCE_DIR}/cmake/modules")
 include(gd)
 
 OPTION(ENABLE_GD_FORMATS "Enable GD image formats" 0)
-OPTION(ENABLE_PNG "Enable PNG support" 0)
+OPTION(ENABLE_PNG "Enable PNG support" 1)
 OPTION(ENABLE_LIQ "Enable libimagequant support" 0)
 OPTION(ENABLE_JPEG "Enable JPEG support" 0)
 OPTION(ENABLE_TIFF "Enable TIFF support" 0)
 OPTION(ENABLE_ICONV "Enable ICONV support" 0)
 OPTION(ENABLE_XPM "Enable XPM support" 0)
-OPTION(ENABLE_FREETYPE "Enable Freetype2 support" 0)
+OPTION(ENABLE_FREETYPE "Enable Freetype2 support" 1)
 OPTION(ENABLE_FONTCONFIG "Enable FontConfig support" 0)
 OPTION(ENABLE_WEBP "Enable WebP support" 0)
 OPTION(ENABLE_HEIF "Enable HEIF support" 0)
@@ -268,7 +268,7 @@ else (USE_EXT_GD)
 	include_directories(${CMAKE_CURRENT_BINARY_DIR}/src)
 
 	option(BUILD_SHARED_LIBS "Build shared libs" ON)
-	option(BUILD_STATIC_LIBS "Build static libs" OFF)
+	option(BUILD_STATIC_LIBS "Build static libs" ON)
 
 	if (WIN32)
 		SET(GD_LIB libgd)
@@ -298,9 +298,9 @@ else (USE_EXT_GD)
 	add_subdirectory(src)
 endif (USE_EXT_GD)
 
-add_subdirectory(tests)
-add_subdirectory(examples)
-add_subdirectory(docs)
+# add_subdirectory(tests)
+# add_subdirectory(examples)
+# add_subdirectory(docs)
 
 add_custom_target(distclean ${GD_SOURCE_DIR}/cmake/distclean.sh)
 
@@ -316,30 +316,6 @@ if(WIN32)
 else(WIN32)
 	set(CPACK_GENERATOR TGZ)
 endif(WIN32)
-
-
-INSTALL(FILES docs/INSTALL DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES docs/README.JPN DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES docs/README.CMAKE DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES docs/README.TESTING DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES docs/README.TXT DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-
-
-INSTALL(FILES examples/arc.c DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/copyrotated.c DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/crop.c DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/flip.c DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/gif.c DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/nnquant.c DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/noIcon.pic DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/noIcon.sgi DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/noIcon.tga DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/noIconAlpha.tga DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/test_crop_threshold.png DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/tgaread.c DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/tiffread.c DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-INSTALL(FILES examples/windows.c DESTINATION share/doc/gd-${GDLIB_MAJOR}.${GDLIB_MINOR})
-
 
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/COPYING")
 

@@ -128,28 +128,6 @@ SET(LIBS_PRIVATES
 	${WEBP_LIBRARIES}
 )
 
-set(GD_PROGRAMS gdcmpgif)
-
-if (PNG_FOUND)
-	set(GD_PROGRAMS ${GD_PROGRAMS} gdtopng pngtogd)
-	if (NOT MSVC)
-		set(GD_PROGRAMS ${GD_PROGRAMS} webpng)
-	endif (NOT MSVC)
-	if (ZLIB_FOUND)
-		set(GD_PROGRAMS ${GD_PROGRAMS} gdparttopng gd2topng pngtogd2)
-	endif()
-endif()
-
-if (FREETYPE_FOUND AND JPEG_FOUND)
-	if (NOT WIN32)
-		set(GD_PROGRAMS ${GD_PROGRAMS} annotate)
-	endif (NOT WIN32)
-endif()
-
-if (ZLIB_FOUND)
-	set(GD_PROGRAMS ${GD_PROGRAMS} gd2copypal gd2togif giftogd2)
-endif()
-
 foreach(program ${GD_PROGRAMS})
     add_executable(${program} ${program}.c)
 
@@ -175,12 +153,13 @@ install(TARGETS ${GD_INSTALL_TARGETS}
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(PROGRAMS bdftogd DESTINATION bin)
+
 install(FILES
 	gd.h
 	gd_color_map.h
 	gd_errors.h
 	gd_io.h
+	gd_io_stream.h
 	gdcache.h
 	gdfontg.h
 	gdfontl.h
