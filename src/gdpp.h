@@ -1513,6 +1513,22 @@ public:
 		return im;
 	}
 
+	operator bool() const
+	{
+		return im != 0;
+	}
+
+	bool operator== (const GD::Image& src) const
+	{
+		int res = gdImageCompare(im,src.im);
+		return res == 0;
+	}
+
+	void AddImageText(const GD::TrueColor &color, const GD::Point &p, int size, const std::string &text, std::string &font) {
+		StringFT(nullptr,color.Int(),(char*)font.c_str(),size,0,p,text);
+		gdFreeFontCache();
+	}
+
 protected:
 	/// Free the internal image pointer
 	void	clear() {
